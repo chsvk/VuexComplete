@@ -1,4 +1,6 @@
 <template>
+<!-- The component NO Longer works, because the store is changed -->
+
     <div class="listTwo">
         <ul>
             <li v-for="(product, index) in products" :key="index">
@@ -12,6 +14,8 @@
 
 <script>
 export default {
+    // <!-- The component NO Longer works, because the store is changed -->
+
     computed: {
         products(){
             return this.$store.getters.productsOnSale

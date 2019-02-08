@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <product-list-one></product-list-one>
-    <product-list-two></product-list-two>
+    <product-list/>
   </div>
 </template>
 
 <script>
-import ProductListOne from '@/components/ProductListOne'
-import ProductListTwo from '@/components/ProductListTwo'
+import ProductList from '@/components/ProductList'
 export default {
   components: {
-    ProductListOne,
-    ProductListTwo
+    ProductList
   },
   data(){
     return{
