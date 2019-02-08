@@ -2,7 +2,9 @@
     <div>
         <h3>Product List</h3>
         <ul>
-            <li v-for="(product, index) in products" :key="index">{{product.title}} - {{product.price}}</li>
+            <li v-for="(product, index) in products" :key="index">{{product.title}} - {{product.price}}
+                <button @click="addProductToCart(product)"> Add To Cart </button>
+            </li>
         </ul>
     </div>
 </template>
@@ -18,6 +20,11 @@ export default {
         this.$store.dispatch('fetchProducts').then(()=>{
             console.log("Products Fetched")
         })
+    },
+    methods: {
+        addProductToCart(product){
+            this.$store.dispatch('addProductToCart', product);
+        }
     }
 }
 </script>
