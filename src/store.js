@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import Shop from '@/Shop'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,22 +14,30 @@ export default new Vuex.Store({
   // Getters are normally declared inside computed properties. 
   // Getters are very similar to computed properties
   getters: {
-    productsCount(){
-
+    availableProducts(state, getters){
+      return state.products.filter(product => product.inventory> 0)
     }
   },
 
-   // actions are used to perform Asynchronous tasks.
-  // Its better practice to call mutations from inside actions.
-  // Actions need to be dispatched just like mutations has to be commited
-  // this.$store.dispatch('reducePrice)
-  // Actions can take parameters as context, which is very much similar to state
+    // actions are used to perform Asynchronous tasks.
+    // Its better practice to call mutations from inside actions.
+    // Actions need to be dispatched just like mutations has to be commited
+    // this.$store.dispatch('reducePrice)
+    // Actions can take parameters as context, which is very much similar to state
+    // Actions can be very complex but should not update the state
+
   actions: {
-    fetchProducts(){
-
+    fetchProducts({commit}){
+      return new Promise((resolve, reject)=>{
+        Shop.getProducts(products => {
+          commit('setProducts', products)
+        })
+        resolve()
+      })
+      
     }
   },
-
+  // Mutations can be very simple and should update only a piece of the state
   // We use mutations to make changes to the state.
   // We use mutations to make changes to the state because, if the changes are made in the front end, it would be
   // harder to debug 
@@ -36,8 +46,8 @@ export default new Vuex.Store({
   // Mutations cannot perform asynchronous tasks
   // Mutations can take parameters as state
   mutations: {
-    setProducts(){
-      
+    setProducts(state, products){
+      state.products = products;
     }
   },
  

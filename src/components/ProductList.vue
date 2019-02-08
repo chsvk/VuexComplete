@@ -8,16 +8,15 @@
 </template>
 
 <script>
-import Shop from '@/Shop'
 export default {
-    data(){
-        return{
-            products: []
+    computed: {
+        products(){
+            return this.$store.getters.availableProducts
         }
     },
     created(){
-        Shop.getProducts(products =>{
-            this.products = products
+        this.$store.dispatch('fetchProducts').then(()=>{
+            console.log("Products Fetched")
         })
     }
 }
