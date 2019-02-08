@@ -11,10 +11,9 @@
 
 <script>
 export default {
-    props: {
-        products: {
-            required: true,
-            type: Array
+    computed: {
+        products(){
+            return this.$store.state.productsOnSale;
         }
     }
 }
