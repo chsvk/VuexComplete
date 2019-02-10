@@ -12,6 +12,8 @@ export default new Vuex.Store({
     checkoutStatus: null
   },
   // Normally used when you need a specific part of the whole data.
+  // Getters dont accept arguments by default 
+  // Arguments have to be passed to getters through higher order functions
   // eg: get only the products for which the price is above 10, etc
   // Getters are normally declared inside computed properties. 
   // Getters are very similar to computed properties
@@ -35,6 +37,11 @@ export default new Vuex.Store({
         total += product.price * product.quantity
       })
       return total;
+    },
+    isProductAvailable(state){
+      return (product)=> {
+        return product.inventory > 0;
+      }
     }
   },
 
@@ -55,7 +62,7 @@ export default new Vuex.Store({
       })
     },
     addProductToCart(context, product){
-      if(product.inventory>0){
+      if(context.getters.isProductAvailable(product)){
         const cartItem = context.state.cart.find(item => item.id === product.id)
         if(!cartItem){
           context.commit('pushProductToCart', product.id)
