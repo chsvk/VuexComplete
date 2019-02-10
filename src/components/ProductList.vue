@@ -14,18 +14,15 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
     computed: {
         ...mapState({
-            products: state => state.products
+            products: state => state.products.products
         }),
         ...mapGetters({
             inStock: 'isProductAvailable'
         }),
-        products(){
-            return this.$store.state.products
-        },
     },
     created(){
         this.fetch().then(()=>{
-            console.log("Products Fetched")
+            console.log(this.products)
         })
     },
     methods: {
